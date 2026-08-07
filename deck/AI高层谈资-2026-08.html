@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>算力的重心在移动 · AI 高层谈资 2026.08</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0A0D12; --bg2:#0F141C; --panel:#141A24;
+  --txt:#F2EFE6; --dim:#8B93A1; --faint:#3A4250;
+  --gold:#C9A96A; --gold-bright:#E3C88F; --red:#E5504D;
+  --serif:"Noto Serif SC",serif; --sans:"Noto Sans SC",sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--txt); font-family:var(--sans); }
+.deck { display:flex; height:100vh; transition:transform .55s cubic-bezier(.77,0,.18,1); }
+.slide { flex:0 0 100vw; height:100vh; padding:7vh 7vw; position:relative; display:flex; flex-direction:column; justify-content:center; overflow:hidden; }
+.slide::before { content:""; position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 70% 20%, rgba(201,169,106,.06), transparent 60%); pointer-events:none; }
+.kicker { font-size:13px; letter-spacing:6px; color:var(--gold); text-transform:uppercase; margin-bottom:3vh; font-weight:500; }
+.kicker::before { content:""; display:inline-block; width:34px; height:1px; background:var(--gold); vertical-align:middle; margin-right:14px; opacity:.7; }
+h1 { font-family:var(--serif); font-weight:700; font-size:min(5.6vw,10vh); line-height:1.3; }
+h1 em { font-style:normal; color:var(--gold-bright); }
+h2 { font-family:var(--serif); font-weight:500; font-size:min(3.4vw,6.4vh); line-height:1.45; margin-bottom:3.5vh; }
+h2 em { font-style:normal; color:var(--gold-bright); }
+.lead { font-size:min(1.25vw,2.4vh); color:var(--dim); line-height:2; max-width:52vw; }
+.meta { position:absolute; bottom:4.5vh; left:7vw; right:7vw; display:flex; justify-content:space-between; font-size:12px; color:var(--faint); letter-spacing:2px; }
+.grid { display:grid; gap:2vh 2vw; }
+.g3 { grid-template-columns:repeat(3,1fr); }
+.g2 { grid-template-columns:repeat(2,1fr); }
+.stat { border-top:1px solid var(--faint); padding-top:2.2vh; }
+.stat b { font-family:var(--serif); font-size:min(3.6vw,6.8vh); font-weight:300; color:var(--gold-bright); display:block; line-height:1.1; letter-spacing:-1px; }
+.stat i { font-style:normal; font-size:min(.95vw,1.9vh); color:var(--dim); display:block; margin-top:1.2vh; line-height:1.8; }
+.card { background:var(--panel); border:1px solid rgba(201,169,106,.14); padding:3vh 2vw; }
+.card h3 { font-size:min(1.15vw,2.2vh); color:var(--gold); font-weight:500; margin-bottom:1.4vh; letter-spacing:1px; }
+.card p { font-size:min(.98vw,2vh); color:var(--dim); line-height:1.9; }
+.sec-num { font-family:var(--serif); font-size:min(11vw,20vh); font-weight:300; color:transparent; -webkit-text-stroke:1px var(--gold); opacity:.55; line-height:1; }
+.talk { display:flex; gap:2vw; align-items:baseline; border-bottom:1px solid rgba(58,66,80,.6); padding:2.1vh 0; }
+.talk .no { font-family:var(--serif); font-size:min(1.8vw,3.4vh); font-weight:300; color:var(--gold); min-width:3.2vw; }
+.talk .fact { flex:1; }
+.talk .fact b { font-size:min(1.18vw,2.3vh); font-weight:500; display:block; line-height:1.7; }
+.talk .fact i { font-style:normal; font-size:min(.95vw,1.85vh); color:var(--dim); display:block; margin-top:.5vh; line-height:1.7; }
+.talk .fact i::before { content:"开场白 · "; color:var(--gold); font-size:.85em; letter-spacing:1px; }
+.nav { position:fixed; bottom:4.5vh; right:7vw; z-index:10; font-size:13px; color:var(--faint); letter-spacing:3px; font-variant-numeric:tabular-nums; }
+.hint { position:fixed; bottom:4.5vh; left:7vw; z-index:10; font-size:11px; color:var(--faint); letter-spacing:2px; }
+.rule-gold { width:56px; height:2px; background:var(--gold); margin-bottom:4vh; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:4vw; align-items:start; }
+.ledger { border-left:2px solid var(--red); padding-left:1.6vw; }
+.ledger.good { border-color:var(--gold); }
+.ledger h4 { font-size:min(1.05vw,2.1vh); letter-spacing:2px; color:var(--dim); margin-bottom:2vh; }
+.ledger .row { margin-bottom:2vh; }
+.ledger .row b { font-family:var(--serif); font-size:min(2vw,3.8vh); font-weight:300; display:block; }
+.ledger .row i { font-style:normal; font-size:min(.92vw,1.8vh); color:var(--dim); }
+.ledger.bad .row b { color:#E88; }
+.ledger.good .row b { color:var(--gold-bright); }
+@media (max-width:820px){ .g3,.g2,.two-col{grid-template-columns:1fr;} .lead{max-width:100%;} h1{font-size:8.4vw;} }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- 1 · 封面 -->
+<section class="slide">
+  <div class="kicker">APAC ICT · AI Executive Briefing</div>
+  <h1>算力的重心<br>在<em>移动</em></h1>
+  <p class="lead" style="margin-top:4vh">从模型分数到电力、存储与国家资本——过去两周，亚太 AI 产业换了记分牌。<br>本材料的每一个数字，都可回溯到当日情报原文。</p>
+  <div class="meta"><span>亚太ICT MSSD · AI 洞察知识库</span><span>数据窗口 2026.07.25 – 08.07 ｜ 13 期日报 · 344 条情报</span></div>
+</section>
+
+<!-- 2 · 数字总览 -->
+<section class="slide">
+  <div class="kicker">两周 · 六个数字</div>
+  <h2>先看数字，再谈判断</h2>
+  <div class="grid g3" style="margin-top:2vh">
+    <div class="stat"><b>63.5%</b><i>OpenRouter 全球 AI 调用量中，中国自研模型的份额——调用榜前五被小米、DeepSeek、混元、智谱包揽</i></div>
+    <div class="stat"><b>800 GW+</b><i>全球 AI 数据中心排队等待接入的电力总量，德州 ERCOT 半年内从 233GW 涨到 474GW</i></div>
+    <div class="stat"><b>8867 亿美元</b><i>九大云服务商 2026 年资本支出总额，同比仍在加速</i></div>
+    <div class="stat"><b>+719.6%</b><i>南亚科 7 月营收同比——AI 需求造成存储"全面性缺货"，三星判断短缺延续到 2028</i></div>
+    <div class="stat"><b>2 GW</b><i>SK 电讯与英伟达意向共建的 AI 工厂规模，韩国把"运营商即算力运营方"写进国家资本结构</i></div>
+    <div class="stat"><b>1.36 GW</b><i>印尼一周内承接的签约算力（Zankore 1GW + CoreWeave 360MW）——亚太算力地图正在重画</i></div>
+  </div>
+  <div class="meta"><span>全部数字出自每日 AI 洞察日报归档</span><span>02</span></div>
+</section>
+
+<!-- 3 · 章节:三个判断 -->
+<section class="slide">
+  <div class="sec-num">壹</div>
+  <h1 style="font-size:min(4.2vw,8vh);margin-top:2vh">三个判断：<em>格局变了</em></h1>
+  <p class="lead" style="margin-top:3vh">开源权重的天平 · 算力的国家化 · 瓶颈的接力</p>
+  <div class="meta"><span>格局</span><span>03</span></div>
+</section>
+
+<!-- 4 · 判断一 -->
+<section class="slide">
+  <div class="kicker">判断一 · 开源权重的天平</div>
+  <h2>全球每三次 AI 调用，<em>约两次跑在中国模型上</em></h2>
+  <div class="two-col">
+    <div>
+      <div class="stat" style="border:none;padding:0"><b style="font-size:min(6vw,11vh)">63.5%</b><i style="font-size:min(1.05vw,2.1vh)">中国模型在 OpenRouter 近 28 天调用量份额；周词元调用量连续 13 周全球第一，日均超 140 万亿</i></div>
+    </div>
+    <div class="grid" style="gap:1.6vh">
+      <div class="card"><h3>规模上限被中国刷新</h3><p>Kimi K3 开放完整权重，2.8 万亿参数为全球开放权重之最；华为开源 5050 亿参数 openPangu-2.0-Pro，昇腾原生训练</p></div>
+      <div class="card"><h3>对手也在用</h3><p>Hugging Face 用 GLM-5.2 完成攻击取证；日本 Sakana AI 以中国开源模型为基座；近 200 家美国科技公司联名反对禁用</p></div>
+      <div class="card"><h3>共识已到部长级</h3><p>APEC 21 个经济体通过《成都声明》，首次就开源 AI 达成部长级共识</p></div>
+    </div>
+  </div>
+  <div class="meta"><span>数据出处：08-03 / 07-31 / 07-25 / 08-01 日报</span><span>04</span></div>
+</section>
+
+<!-- 5 · 判断二 -->
+<section class="slide">
+  <div class="kicker">判断二 · 算力的国家化</div>
+  <h2>算力写进了国家资本结构，<em>运营商从"用 AI"变成"卖 AI 产能"</em></h2>
+  <div class="grid g3" style="margin-top:1vh">
+    <div class="stat"><b>9500 亿美元</b><i>韩美芯片供应与制造合作包；韩国政企部署约 26 万块 GPU，国家 AI 计算中心已动工（2028 年 1.5 万卡）</i></div>
+    <div class="stat"><b>2 万亿元</b><i>中国"六网"工程披露的 2026 年全国 AI 算力网投资规模；中国联通智算规模已达 45EFLOPS</i></div>
+    <div class="stat"><b>1.5 万亿日元</b><i>NTT Data 拟投入金额，2033 年把日本 AI 算力容量提升至 1GW</i></div>
+  </div>
+  <div class="card" style="margin-top:3.5vh;border-left:3px solid var(--gold)">
+    <h3>运营商的新账本已经开始兑现</h3>
+    <p>SK 电讯 AI 数据中心营收同比 <b style="color:var(--gold-bright)">+92.5%</b> ｜ Indosat AI Cloud 半年收入 <b style="color:var(--gold-bright)">3300 万美元</b>，超去年全年 ｜ Airtel 旗下 Nxtra 提出 <b style="color:var(--gold-bright)">1GW</b> 容量目标</p>
+  </div>
+  <div class="meta"><span>数据出处：07-25 / 07-28 / 08-05 / 08-06 日报</span><span>05</span></div>
+</section>
+
+<!-- 6 · 判断三 -->
+<section class="slide">
+  <div class="kicker">判断三 · 瓶颈的接力</div>
+  <h2>约束从"买不到芯片"，变成<em>"接不上电、买不到内存、融不到钱"</em></h2>
+  <div class="grid g3" style="margin-top:1vh">
+    <div class="card"><h3>电</h3><p>全球数据中心排队电力超 <b style="color:var(--gold-bright)">800GW</b>；印度测算 2031-32 年新增 26.3GW 用电；泰国单个项目需求已达 500MW；德州要求新建先过电网审计</p></div>
+    <div class="card"><h3>存储</h3><p>南亚科 7 月营收 <b style="color:var(--gold-bright)">+719.6%</b>；韩国 7 月半导体出口 410 亿美元、+179%；三星把六到七成产能锁进五年长约，含价格下限；短缺看到 2028</p></div>
+    <div class="card"><h3>钱</h3><p>英伟达拟为 OpenAI 提供约 <b style="color:var(--gold-bright)">2500 亿美元</b>担保，7500 亿交易潮引发循环融资担忧；CoreWeave 信用违约互换一度突破 855 基点</p></div>
+  </div>
+  <p class="lead" style="margin-top:3.5vh;max-width:100%">AI 基建的信用结构，第一次被债券市场直接定价。能把"瓦特"和"比特"一起解的厂商，才进得了下一轮牌桌。</p>
+  <div class="meta"><span>数据出处：08-05 / 07-28 / 07-31 / 08-06 日报</span><span>06</span></div>
+</section>
+
+<!-- 7 · 章节:亚太 -->
+<section class="slide">
+  <div class="sec-num">贰</div>
+  <h1 style="font-size:min(4.2vw,8vh);margin-top:2vh">亚太：<em>地图与规则同时重画</em></h1>
+  <p class="lead" style="margin-top:3vh">落点外扩 · 规则时代 · 回报检验</p>
+  <div class="meta"><span>亚太</span><span>07</span></div>
+</section>
+
+<!-- 8 · 亚太地图 -->
+<section class="slide">
+  <div class="kicker">落点外扩</div>
+  <h2>新增算力越过传统枢纽，<em>电力可得性取代区位</em></h2>
+  <div class="grid g3" style="margin-top:1vh">
+    <div class="stat"><b>8542 MW</b><i>柔佛规划容量，亚太数据中心储备第一，空置率仅 0.7%；DC Byte 列其为亚太增长首位</i></div>
+    <div class="stat"><b>1.36 GW</b><i>印尼一周承接两笔：Ooredoo 联合英伟达共建 Zankore（三年 1GW）+ CoreWeave 亚太首站三座自建（360MW）</i></div>
+    <div class="stat"><b>20 MW</b><i>新加坡在建容量——在运 1.46GW 仍居东南亚首位，但增量近乎停滞</i></div>
+  </div>
+  <div class="card" style="margin-top:3.5vh">
+    <h3>下一轮主战场</h3><p>印尼 · 柔佛 · 印度（2030 年 12GW，需投 3500–4350 亿美元）· 越南（次级枢纽，在运约 148MW）——需求集中在电力、制冷、光互连与本地交付</p>
+  </div>
+  <div class="meta"><span>数据出处：07-31 / 08-07 / 07-30 / 07-28 日报</span><span>08</span></div>
+</section>
+
+<!-- 9 · 规则时代 -->
+<section class="slide">
+  <div class="kicker">规则时代</div>
+  <h2>亚太从"抢投资"转向"定规则"，<em>抓手清一色是电与水</em></h2>
+  <div class="grid g2" style="margin-top:1vh">
+    <div class="card"><h3>泰国</h3><p>四项质量门槛 + 每兆瓦 450 万泰铢电力保函，牌照升为 Type 3；清洁电力被定义为"决定泰国 AI 未来"的要素</p></div>
+    <div class="card"><h3>马来西亚</h3><p>外资数据中心改用"经济价值计分卡"评估；AI Nation 2030 把重心从供地供电转向算力服务、本地模型与行业应用</p></div>
+    <div class="card"><h3>印度 / 澳大利亚</h3><p>印度电信数据出境"零例外"禁令；澳洲要求数据中心自筹电力并承担全额并网成本</p></div>
+    <div class="card"><h3>新加坡 / 欧盟</h3><p>新加坡《董事会 AI 指南》把 AI 责任压到董事会层级；欧盟 AI 法案执法权生效，可按全球营收计罚</p></div>
+  </div>
+  <p class="lead" style="margin-top:3vh;max-width:100%">准入逻辑变成："电从哪来、水怎么省、本地得到什么。"本地价值成为硬通货。</p>
+  <div class="meta"><span>数据出处：07-27 / 08-02 日报</span><span>09</span></div>
+</section>
+
+<!-- 10 · 回报检验 -->
+<section class="slide">
+  <div class="kicker">回报检验</div>
+  <h2>泡沫争论的答案，<em>藏在两本账的差值里</em></h2>
+  <div class="two-col" style="margin-top:1vh">
+    <div class="ledger bad">
+      <h4>投入的账 · 越来越重</h4>
+      <div class="row"><b>1159.5 亿美元</b><i>微软全年资本支出（+80%）——Azure 收入首破千亿，投入更破纪录</i></div>
+      <div class="row"><b>7.84 亿美元</b><i>Meta 单季自由现金流——营收 +28%，费用 +55%</i></div>
+      <div class="row"><b>-11% / -2030 点</b><i>KOSPI 单日最大跌幅 / 台股单日下跌点数——市场开始用脚投票</i></div>
+    </div>
+    <div class="ledger good">
+      <h4>回报的账 · 开始出现</h4>
+      <div class="row"><b>3–4.5 亿卢比</b><i>Airtel 3 万名工程师改用端侧模型后，每年归零的云端推理开销</i></div>
+      <div class="row"><b>15 万+ 工时</b><i>Westpac 把 AI 智能体嵌入信贷流程后累计节省</i></div>
+      <div class="row"><b>+30%</b><i>Grab 产品交付提速幅度，并因此上调全年收入指引</i></div>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:3vh;max-width:100%">客户的预算审批正在变严——方案叙事要从能力清单，切换到单位任务成本与可核算回报。</p>
+  <div class="meta"><span>数据出处：07-30 / 08-06 / 08-07 日报</span><span>10</span></div>
+</section>
+
+<!-- 11 · 章节:谈资 -->
+<section class="slide">
+  <div class="sec-num">叁</div>
+  <h1 style="font-size:min(4.2vw,8vh);margin-top:2vh">十句<em>可以开口的话</em></h1>
+  <p class="lead" style="margin-top:3vh">高层交流 · 发布会开场 · 每句话背后都有一个当天可查证的数字</p>
+  <div class="meta"><span>谈资</span><span>11</span></div>
+</section>
+
+<!-- 12 · 谈资 1-5 -->
+<section class="slide" style="justify-content:flex-start;padding-top:9vh">
+  <div class="kicker">谈资 · 上</div>
+  <div class="talk"><span class="no">01</span><div class="fact"><b>中国模型占全球 AI 调用量 63.5%，前五名被小米、DeepSeek、混元、智谱包揽</b><i>"现在全球每三次 AI 调用，大约有两次跑在中国的开源模型上——这在一年前不可想象。"</i></div></div>
+  <div class="talk"><span class="no">02</span><div class="fact"><b>韩国把"运营商即 AI 算力运营方"写进国家资本结构，SKT 建 2GW AI 工厂</b><i>"韩国给运营商的定位变了：不是用 AI 的电信公司，而是卖 AI 产能的基础设施企业。"</i></div></div>
+  <div class="talk"><span class="no">03</span><div class="fact"><b>全球 AI 数据中心排队电力超过 800GW，德州排队半年翻倍到 474GW</b><i>"AI 现在缺的不是 GPU，是变电站——800GW 相当于 40 个三峡在排队。"</i></div></div>
+  <div class="talk"><span class="no">04</span><div class="fact"><b>CoreWeave 进亚太第一站选了印尼不是新加坡；柔佛 8542MW 居亚太储备第一</b><i>"算力正在越过传统枢纽向外扩散——新加坡在建只剩 20MW，增量都去了印尼和柔佛。"</i></div></div>
+  <div class="talk"><span class="no">05</span><div class="fact"><b>南亚科营收同比 +719.6%，三星判断存储短缺持续到 2028，长鑫 3.31 万亿登顶 A 股</b><i>"这一轮最先赚到钱的不是做模型的，是做内存的。"</i></div></div>
+  <div class="meta"><span></span><span>12</span></div>
+</section>
+
+<!-- 13 · 谈资 6-10 -->
+<section class="slide" style="justify-content:flex-start;padding-top:9vh">
+  <div class="kicker">谈资 · 下</div>
+  <div class="talk"><span class="no">06</span><div class="fact"><b>九大云商年资本开支 8867 亿美元；CoreWeave 信用违约互换一度突破 855 基点</b><i>"AI 基建第一次被债券市场定价——这轮竞争拼的是谁的融资结构更健康。"</i></div></div>
+  <div class="talk"><span class="no">07</span><div class="fact"><b>泰国设电力保函、马来西亚改计分卡、印度数据零例外禁出境</b><i>"亚太的数据中心审批换了考卷：不再问投多少钱，改问电从哪来、本地得到什么。"</i></div></div>
+  <div class="talk"><span class="no">08</span><div class="fact"><b>Airtel 给 3 万名现场工程师部署端侧小模型，每年数亿卢比云端开销归零</b><i>"推理正在从云端搬进口袋——运营商第一次把 AI 账单做成了负数。"</i></div></div>
+  <div class="talk"><span class="no">09</span><div class="fact"><b>Opus 5 定价腰斩、GPT-5.6 降 80%、MiniMax 把视频生成压到分钱级</b><i>"前沿竞争的记分牌从跑分变成了单位任务成本——降价就是新的军备竞赛。"</i></div></div>
+  <div class="talk"><span class="no">10</span><div class="fact"><b>华为开源 5050 亿参数盘古（昇腾原生），周内落地泰国 AIS 智能制造合作</b><i>"开放权重加自主算力，正好是亚太各国主权 AI 诉求咬合最紧的一对组合。"</i></div></div>
+  <div class="meta"><span></span><span>13</span></div>
+</section>
+
+<!-- 14 · 收束 -->
+<section class="slide">
+  <div class="rule-gold"></div>
+  <h1 style="font-size:min(4.6vw,8.6vh)">谁解决<em>电与内存</em>，<br>谁定义下一轮 AI。</h1>
+  <p class="lead" style="margin-top:4vh">下期追踪：中国开源份额是否破 70% ｜ 韩国模式会不会被东南亚复制 ｜ 存储长约如何推高亚太造价 ｜ 印尼 1.36GW 的开工进度</p>
+  <div class="meta"><span>亚太ICT MSSD · AI 洞察知识库 · 每日更新</span><span>2026.08 · 第一期</span></div>
+</section>
+
+</div>
+<div class="nav"><span id="cur">01</span> / <span id="tot">14</span></div>
+<div class="hint">← → 翻页 · 点击右侧前进</div>
+<script>
+const deck = document.getElementById('deck');
+const slides = deck.children.length;
+document.getElementById('tot').textContent = String(slides).padStart(2,'0');
+let i = 0;
+function go(n) {
+  i = Math.max(0, Math.min(slides-1, n));
+  deck.style.transform = `translateX(-${i*100}vw)`;
+  document.getElementById('cur').textContent = String(i+1).padStart(2,'0');
+}
+addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ') go(i+1);
+  if (e.key==='ArrowLeft'||e.key==='PageUp') go(i-1);
+  if (e.key==='Home') go(0);
+  if (e.key==='End') go(slides-1);
+});
+let wl = 0;
+addEventListener('wheel', e => {
+  const now = Date.now();
+  if (now - wl < 450) return;
+  if (Math.abs(e.deltaY) < 12 && Math.abs(e.deltaX) < 12) return;
+  wl = now;
+  (e.deltaY + e.deltaX > 0) ? go(i+1) : go(i-1);
+}, {passive:true});
+let tx = 0;
+addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive:true});
+addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 50) dx < 0 ? go(i+1) : go(i-1);
+}, {passive:true});
+addEventListener('click', e => {
+  if (e.clientX > innerWidth*0.66) go(i+1);
+  else if (e.clientX < innerWidth*0.15) go(i-1);
+});
+go(0);
+</script>
+</body>
+</html>

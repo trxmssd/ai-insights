@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 洞察观点报告 · 第一期（2026.07.25–08.07）</title>
+<style>
+:root { --red:#C7000B; --ink:#1a1a1a; --gray:#555; --line:#e8e8e8; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Microsoft YaHei","PingFang SC",sans-serif; color:var(--ink); background:#fff; line-height:1.9; }
+.wrap { max-width:860px; margin:0 auto; padding:0 28px 60px; }
+.head { border-bottom:3px solid var(--red); padding:40px 0 24px; margin-bottom:8px; }
+.head .tag { color:var(--red); font-size:13px; font-weight:700; letter-spacing:2px; }
+.head h1 { font-size:30px; margin-top:10px; line-height:1.4; }
+.head p { color:var(--gray); font-size:13px; margin-top:10px; }
+.lede { background:#faf7f7; border-left:4px solid var(--red); padding:18px 22px; font-size:15px; margin:28px 0; }
+h2 { font-size:21px; margin:44px 0 6px; padding-left:12px; border-left:5px solid var(--red); line-height:1.5; }
+h2 small { display:block; font-size:13px; color:var(--gray); font-weight:400; margin-top:2px; }
+p.body { font-size:15px; margin:14px 0; }
+.nums { display:flex; flex-wrap:wrap; gap:14px; margin:20px 0; }
+.num { flex:1; min-width:180px; background:#fff; border:1px solid var(--line); border-top:3px solid var(--red); padding:14px 16px; }
+.num b { font-size:26px; color:var(--red); display:block; }
+.num i { font-style:normal; font-size:12.5px; color:var(--gray); display:block; margin-top:4px; line-height:1.6; }
+.so { background:#1a1a1a; color:#fff; padding:16px 22px; margin:20px 0; font-size:14.5px; border-radius:4px; }
+.so b { color:#ff8a8a; }
+footer { color:#aaa; font-size:12px; margin-top:60px; border-top:1px solid var(--line); padding-top:16px; }
+a { color:var(--red); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="head">
+  <div class="tag">亚太ICT MSSD · AI 洞察观点报告</div>
+  <h1>算力的重心在移动：<br>从模型分数到电力、存储与国家资本</h1>
+  <p>第一期 ｜ 数据窗口：2026-07-25 至 2026-08-07（13 期日报，344 条情报）｜ 所有数字均出自每日 AI 洞察日报归档，可回溯查证</p>
+</div>
+
+<div class="lede">
+两周的日报叠在一起看，出现了单日新闻里看不到的东西：AI 竞争的记分牌换了。上半场比的是模型分数和芯片供给，这两周的 344 条情报里，反复出现的关键词是电力配额、存储长约、融资结构、开放权重和国家资本。以下六个观点，每一条都有日报里的原始数据支撑。
+</div>
+
+<h2>观点一：开源权重成了中国 AI 的"出口产品"<small>模型竞争的主动权正在转向私有化部署</small></h2>
+<div class="nums">
+  <div class="num"><b>63.5%</b><i>OpenRouter 近 28 天全球调用量中，中国自研模型份额（08-03）</i></div>
+  <div class="num"><b>13 周</b><i>中国大模型周词元调用量连续居全球首位，日均调用超 140 万亿（07-31）</i></div>
+  <div class="num"><b>2.8 万亿</b><i>Kimi K3 开放完整权重的参数规模，全球开放权重之最（08-03）</i></div>
+</div>
+<p class="body">这两周里，OpenRouter 全球调用量前五被小米、DeepSeek、腾讯混元、智谱包揽；华为开源 5050 亿参数的 openPangu-2.0-Pro（昇腾原生训练），LG 同日以 Apache 2.0 开源 7500 亿参数的 K-EXAONE。更值得注意的是采用方：Hugging Face 因商业模型护栏拒答，改用 GLM-5.2 完成攻击取证；日本 Sakana AI 的新 API 直接以中国开源模型为基座再训练；近 200 家美国科技公司联名反对禁用中国开源模型，黄仁勋与马斯克公开站队。APEC 21 个经济体在《成都声明》里首次就开源 AI 达成部长级共识。</p>
+<div class="so"><b>对我们意味着什么：</b>客户选模型的逻辑正在从"哪个分高"变成"哪个能私有化部署、能适配本地算力"。开放权重 + 自主算力适配，正是与亚太主权 AI 诉求咬合最紧的一对组合。</div>
+
+<h2>观点二：算力写进了国家资本结构<small>运营商的角色被重新定义——从"用 AI"到"卖 AI 产能"</small></h2>
+<div class="nums">
+  <div class="num"><b>9500 亿美元</b><i>韩美芯片供应与制造合作包总额（07-25）</i></div>
+  <div class="num"><b>2GW</b><i>SK 电讯与英伟达意向共建的 AI 工厂规模，配套超 5000 亿美元意向书（07-25）</i></div>
+  <div class="num"><b>+92.5%</b><i>SK 电讯 AI 数据中心营收同比增速（08-06）</i></div>
+</div>
+<p class="body">韩国把"运营商即 AI 算力运营方"写进了国家级资本结构：政企部署约 26 万块 GPU，国家 AI 计算中心 8 月 3 日动工、2028 年建成 1.5 万卡底座，同园区设国产 AI 芯片验证区。中国的"六网"工程披露 2026 年全国 AI 算力网投资约 2 万亿元人民币，中国联通智算规模达 45EFLOPS。日本 NTT Data 拟投 1.5 万亿日元在 2033 年把国内 AI 算力提到 1GW。运营商侧的账本已经开始兑现：Indosat 的 AI Cloud 半年收入 3300 万美元、超过去年全年；Airtel 旗下 Nxtra 提出 1GW 容量目标。</p>
+<div class="so"><b>对我们意味着什么：</b>亚太运营商正集体从连接提供方转向算力运营方，网络、算力、能源在同一张投资表上。这是 ICT 基础设施厂商未来五年最大的一块增量叙事。</div>
+
+<h2>观点三：瓶颈完成了一次接力——从芯片到电、存储与钱<small>"买不到 GPU"正在被"接不上电、买不到内存、融不到资"取代</small></h2>
+<div class="nums">
+  <div class="num"><b>800GW+</b><i>全球 AI 数据中心排队等待接入的电力规模（08-05）</i></div>
+  <div class="num"><b>+719.6%</b><i>南亚科 7 月营收同比增速，"云端需求造成存储全面性缺货"（08-05）</i></div>
+  <div class="num"><b>2028 年</b><i>三星判断 AI 存储短缺将延续到的年份（07-31）</i></div>
+</div>
+<p class="body">电：印度官方测算 AI 数据中心到 2031-32 年新增 26.3GW 用电；泰国单个项目电力需求已达 500MW；德州 ERCOT 并网排队半年内从 233GW 升至 474GW，新建数据中心要先过电网审计。存储：韩国 7 月半导体出口 410 亿美元、同比增 179%；长鑫科技上市首日涨 471.59%、以 3.31 万亿元市值登顶 A 股；三星与 SK 海力士把六到七成产能锁进五年起步的长约，部分条款含价格下限。钱：英伟达拟为 OpenAI 提供约 2500 亿美元担保，7500 亿美元交易潮引发循环融资担忧；CoreWeave 信用违约互换一度突破 855 个基点——AI 基建的信用结构第一次被债券市场直接定价。</p>
+<div class="so"><b>对我们意味着什么：</b>算力项目的成败要素变成了电力工程、供电架构与储能配套。能把"瓦特"问题和"比特"问题一起解的厂商，才进得了下一轮牌桌。</div>
+
+<h2>观点四：亚太从"抢投资"转向"定规则"<small>数据中心准入的抓手清一色是电与水</small></h2>
+<div class="nums">
+  <div class="num"><b>450 万泰铢/MW</b><i>泰国新规要求的数据中心电力保函标准（07-27）</i></div>
+  <div class="num"><b>零例外</b><i>印度电信数据出境禁令的执行口径（07-27）</i></div>
+  <div class="num"><b>董事会</b><i>新加坡《董事会 AI 指南》把 AI 责任压到的层级（08-02）</i></div>
+</div>
+<p class="body">同一周内：泰国设四项质量门槛并把牌照升为 Type 3；马来西亚改用"经济价值计分卡"评估外资数据中心，AI Nation 2030 把政策重心从供地供电改为算力服务、本地模型与行业应用；澳大利亚要求数据中心自筹电力并承担全额并网成本；欧盟 AI 法案执法权 8 月 2 日生效，可按全球营收计罚。准入逻辑从"有地有电就批"变成"说清楚电从哪来、水怎么省、本地得到什么"。</p>
+<div class="so"><b>对我们意味着什么：</b>纯投资故事在亚太开始失效，"本地价值"成为硬通货——培养开发者、扶持本地模型、绑定本国产业链的方案会拿到规则红利。</div>
+
+<h2>观点五：算力地图重画——落点越过传统枢纽向外扩散<small>电力可得性取代区位，成为选址第一变量</small></h2>
+<div class="nums">
+  <div class="num"><b>8542MW</b><i>柔佛规划容量，居亚太数据中心储备首位，空置率仅 0.7%（07-31）</i></div>
+  <div class="num"><b>1GW + 360MW</b><i>印尼一周内承接的两笔算力：Zankore 平台与 CoreWeave 亚太首站（08-07）</i></div>
+  <div class="num"><b>20MW</b><i>新加坡 AI 数据中心在建容量——在运 1.46GW 仍居东南亚首位，但增量近乎停滞（07-30）</i></div>
+</div>
+<p class="body">CoreWeave 首次进入亚太，没有选新加坡，而是在印尼自建自营三座数据中心；Ooredoo 联合英伟达、诺基亚与 Indosat 共建 Zankore 平台，三年签约 1GW。DC Byte 把柔佛列为亚太增长首位，吉隆坡与雅加达同入前十。印度到 2030 年数据中心规模将达 12GW，需投资 3500 亿至 4350 亿美元。软银 CFO 的判断是：面向 AI 的数据中心"压倒性供给不足"。</p>
+<div class="so"><b>对我们意味着什么：</b>印尼、马来西亚（柔佛）、印度、越南是下一轮算力基建的主战场，需求集中在电力、制冷、光互连与本地交付能力——恰好是全栈 ICT 厂商的主场。</div>
+
+<h2>观点六：回报检验开始了——从讲故事到看账本<small>"单位任务成本"成为新的竞争轴</small></h2>
+<div class="nums">
+  <div class="num"><b>8867 亿美元</b><i>九大云服务商 2026 年资本支出总额（08-06）</i></div>
+  <div class="num"><b>7.84 亿美元</b><i>Meta 单季自由现金流——营收增 28%，费用增 55%（07-30）</i></div>
+  <div class="num"><b>-80%</b><i>OpenAI GPT-5.6 系列 Luna 档 API 降价幅度；Opus 5 定价腰斩（07-31 / 07-25）</i></div>
+</div>
+<p class="body">微软 Azure 全年收入首破 1000 亿美元，但资本支出约 1159.5 亿、增近 80%——AI 云第一次出现"收入破纪录、投入更破纪录"的组合。新加坡金管局把 AI 投资热潮的可持续性列为金融市场首要不确定因素，台股两周内两次单日大跌（-2030 点、-1564 点），KOSPI 单日跌近 11%。但另一本账在变好：Airtel 给 3 万名现场工程师部署端侧小模型，每年 3 亿至 4.5 亿卢比的云端推理开销直接归零；Westpac 用 AI 智能体累计节省逾 15 万工时；Grab 产品交付提速三成并上调全年指引。泡沫争论的答案藏在这两本账的差值里。</p>
+<div class="so"><b>对我们意味着什么：</b>客户的 AI 预算审批正在变严，"省了多少、赚了多少"取代"部署了什么"。方案叙事要从能力清单切换到单位任务成本与可核算回报。</div>
+
+<h2>下期追踪清单</h2>
+<p class="body">1）中国开源模型全球调用份额是否突破 70%；2）韩国模式（运营商=算力运营方）是否被东南亚复制，重点看 AIS、Telkomsel、Viettel；3）存储长约价格下限是否推高亚太数据中心单位造价；4）印尼两笔算力（1GW+360MW）的实际开工进度；5）九大云商资本开支与 AI 收入的剪刀差走向。</p>
+
+<footer>亚太ICT MSSD AI 洞察知识库 · 观点报告第一期 · 生成于 2026-08-07 · 全部数据可在知识库按关键词回溯到当日日报原文</footer>
+</div>
+</body>
+</html>
