@@ -103,6 +103,22 @@ links = ''
 if os.path.isdir(ins_dir):
     files = sorted(os.listdir(ins_dir), reverse=True)
     links = ''.join(f'<a href="insights/{f}">观点报告 · {os.path.splitext(f)[0]}</a>' for f in files if f.endswith('.html'))
+# deck 高层交流材料入口（最新一份用爆点标题高亮，红底；其余黑底）
+deck_dir = os.path.join(BASE,'deck')
+DECK_LABELS = {
+    'AI高层谈资-Token时代-2026-08.pptx': ('AI 的账单，换了单位 · 高层谈资 PPT（07.25–08.17）', True),
+    'AI高层谈资-2026-08.html': ('算力的重心在移动 · 谈资网页版', False),
+    'AI高层谈资-算力的重心在移动-2026-08.pptx': ('算力的重心在移动 · 谈资 PPT 旧版', False),
+    '分享-AI辅助日常办公-2026-08.html': ('分享 · AI 辅助日常办公', False),
+}
+if os.path.isdir(deck_dir):
+    dfiles = [f for f in os.listdir(deck_dir) if f.endswith(('.html','.pptx'))]
+    dfiles.sort(key=lambda f: (0 if DECK_LABELS.get(f,(None,False))[1] else 1, f))
+    for f in dfiles:
+        label, hot = DECK_LABELS.get(f, ('谈资 · '+os.path.splitext(f)[0], False))
+        cls = '' if hot else ' class="alt"'
+        prefix = '🔥 ' if hot else ''
+        links += f'<a{cls} href="deck/{f}">{prefix}{label}</a>'
 html = html.replace('__INSIGHTS__', f'<div class="insights">{links}</div>' if links else '')
 n_items = sum(len(d['items']) for d in idx)
 dates = sorted(d['date'] for d in idx)
