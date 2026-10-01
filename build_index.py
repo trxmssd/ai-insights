@@ -106,7 +106,8 @@ if os.path.isdir(ins_dir):
 # deck 高层交流材料入口（最新一份用爆点标题高亮，红底；其余黑底）
 deck_dir = os.path.join(BASE,'deck')
 DECK_LABELS = {
-    'AI高层谈资-Token时代-2026-08.pptx': ('AI 的账单，换了单位 · 高层谈资 PPT（07.25–08.17）', True),
+    'AI高层谈资-AI进入记账期-2026-09.pptx': ('AI 进入记账期 · 高层谈资 PPT（2026.09）', True),
+    'AI高层谈资-Token时代-2026-08.pptx': ('AI 的账单，换了单位 · 高层谈资 PPT（07.25–08.17）', False),
     'AI高层谈资-2026-08.html': ('算力的重心在移动 · 谈资网页版', False),
     'AI高层谈资-算力的重心在移动-2026-08.pptx': ('算力的重心在移动 · 谈资 PPT 旧版', False),
     '分享-AI辅助日常办公-2026-08.html': ('分享 · AI 辅助日常办公', False),
