@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """重建知识库首页 index.html（数据内嵌，file:// 与 GitHub Pages 均可用）。每日归档后重跑一次。"""
-import json, io, os
+import json, io, os, re
 BASE = os.path.dirname(os.path.abspath(__file__))
 idx = json.load(open(os.path.join(BASE,'search-index.json'), encoding='utf-8'))
 idx.sort(key=lambda x: x['date'], reverse=True)
@@ -98,29 +98,114 @@ render('');
 </script>
 </body>
 </html>"""
+# ---------- 子页面：观点报告 / 高层谈资（首页只放入口，具体内容放子页） ----------
+SUB_CSS = """
+:root { --red:#C7000B; --ink:#1a1a1a; --gray:#666; --line:#e8e8e8; --bg:#fafafa; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Microsoft YaHei","PingFang SC",sans-serif; background:var(--bg); color:var(--ink); }
+.hero { background:#fff; border-bottom:3px solid var(--red); padding:28px 24px 22px; }
+.hero .inner, .main { max-width:960px; margin:0 auto; }
+.back { font-size:13px; color:var(--gray); text-decoration:none; }
+.back:hover { color:var(--red); }
+.hero h1 { font-size:24px; letter-spacing:1px; margin-top:10px; }
+.hero h1 span { color:var(--red); }
+.hero p { color:var(--gray); font-size:13px; margin-top:8px; }
+.main { padding:24px; }
+.group { font-size:14px; font-weight:700; color:var(--red); margin:22px 0 10px; border-left:4px solid var(--red); padding-left:10px; }
+.card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:16px 20px; margin-bottom:12px; display:flex; align-items:center; gap:16px; text-decoration:none; color:inherit; transition:box-shadow .15s; }
+.card:hover { box-shadow:0 4px 16px rgba(0,0,0,.08); }
+.card .body { flex:1; min-width:0; }
+.card .date { font-size:12px; color:var(--red); font-weight:700; }
+.card .title { font-size:16px; font-weight:700; margin-top:4px; line-height:1.5; }
+.card .tag { font-size:12px; color:#fff; background:var(--red); border-radius:3px; padding:1px 6px; margin-left:8px; font-weight:400; vertical-align:2px; }
+.card .fmt { font-size:12px; color:var(--gray); border:1px solid var(--line); border-radius:4px; padding:4px 10px; white-space:nowrap; }
+footer { text-align:center; color:#bbb; font-size:12px; padding:30px 0 40px; }
+"""
+
+def esc(s):
+    return s.replace('&','&amp;').replace('<','&lt;').replace('>','&gt;')
+
+def sub_page(title_html, title_text, desc, body):
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title_text} · 亚太ICT MSSD AI 洞察知识库</title>
+<style>{SUB_CSS}</style>
+</head>
+<body>
+<div class="hero"><div class="inner">
+<a class="back" href="../index.html">← 返回知识库首页</a>
+<h1>{title_html}</h1>
+<p>{desc}</p>
+</div></div>
+<div class="main">
+{body}
+</div>
+<footer>亚太ICT MSSD AI 洞察知识库 · 自动归档生成</footer>
+</body>
+</html>"""
+
+def card(href, date, title, fmt, latest=False):
+    tag = '<span class="tag">最新</span>' if latest else ''
+    dl = ' download' if fmt.startswith('PPTX') else ''
+    return (f'<a class="card" href="{href}"{dl}><div class="body"><div class="date">{date}</div>'
+            f'<div class="title">{esc(title)}{tag}</div></div><span class="fmt">{fmt}</span></a>')
+
+def page_title(path, fallback):
+    try:
+        m = re.search(r'<title>([^<]+)', io.open(path, encoding='utf-8').read())
+        return m.group(1).strip() if m else fallback
+    except Exception:
+        return fallback
+
+# 观点报告：insights/YYYY-MM-第N期.html
 ins_dir = os.path.join(BASE,'insights')
-links = ''
-if os.path.isdir(ins_dir):
-    files = sorted(os.listdir(ins_dir), reverse=True)
-    links = ''.join(f'<a href="insights/{f}">观点报告 · {os.path.splitext(f)[0]}</a>' for f in files if f.endswith('.html'))
-# deck 高层交流材料入口（最新一份用爆点标题高亮，红底；其余黑底）
+ins_files = sorted([f for f in os.listdir(ins_dir) if f.endswith('.html') and f != 'index.html'], reverse=True) if os.path.isdir(ins_dir) else []
+if ins_files:
+    cards = ''.join(card(f, f[:7].replace('-','.'), page_title(os.path.join(ins_dir,f), os.path.splitext(f)[0]), '网页', i == 0)
+                    for i, f in enumerate(ins_files))
+    io.open(os.path.join(ins_dir,'index.html'),'w',encoding='utf-8').write(sub_page(
+        '<span>观点报告</span>', '观点报告',
+        f'月度观点报告：每期若干判断，按"判断 → 总结 → 启示"三层展开 · 共 {len(ins_files)} 期', cards))
+
+# 高层谈资：deck/ 下的 PPTX 与网页版（标签手工维护，未登记的按文件名兜底）
 deck_dir = os.path.join(BASE,'deck')
 DECK_LABELS = {
-    'AI高层谈资-AI基建挤水分-2026-10.pptx': ('AI 基建开始挤水分 · 高层谈资 PPT（2026.10）', True),
-    'AI高层谈资-AI进入记账期-2026-09.pptx': ('AI 进入记账期 · 高层谈资 PPT（2026.09）', False),
-    'AI高层谈资-Token时代-2026-08.pptx': ('AI 的账单，换了单位 · 高层谈资 PPT（07.25–08.17）', False),
-    'AI高层谈资-2026-08.html': ('算力的重心在移动 · 谈资网页版', False),
-    'AI高层谈资-算力的重心在移动-2026-08.pptx': ('算力的重心在移动 · 谈资 PPT 旧版', False),
-    '分享-AI辅助日常办公-2026-08.html': ('分享 · AI 辅助日常办公', False),
+    'AI高层谈资-AI基建挤水分-2026-10.pptx': 'AI 基建开始挤水分',
+    'AI高层谈资-AI进入记账期-2026-09.pptx': 'AI 进入记账期',
+    'AI高层谈资-Token时代-2026-08.pptx': 'AI 的账单，换了单位（07.25–08.17）',
+    'AI高层谈资-2026-08.html': '算力的重心在移动',
+    'AI高层谈资-算力的重心在移动-2026-08.pptx': '算力的重心在移动（旧版）',
+    '分享-AI辅助日常办公-2026-08.html': 'AI 辅助日常办公',
 }
-if os.path.isdir(deck_dir):
-    dfiles = [f for f in os.listdir(deck_dir) if f.endswith(('.html','.pptx'))]
-    dfiles.sort(key=lambda f: (0 if DECK_LABELS.get(f,(None,False))[1] else 1, f))
-    for f in dfiles:
-        label, hot = DECK_LABELS.get(f, ('谈资 · '+os.path.splitext(f)[0], False))
-        cls = '' if hot else ' class="alt"'
-        prefix = '🔥 ' if hot else ''
-        links += f'<a{cls} href="deck/{f}">{prefix}{label}</a>'
+deck_files = [f for f in os.listdir(deck_dir) if f.endswith(('.html','.pptx')) and f != 'index.html'] if os.path.isdir(deck_dir) else []
+def deck_month(f):
+    m = re.search(r'(\d{4})-(\d{2})', f)
+    return m.group(0) if m else '0000-00'
+talks = sorted([f for f in deck_files if not f.startswith('分享')], key=lambda f: (deck_month(f), '旧版' not in DECK_LABELS.get(f,''), f.endswith('.pptx')), reverse=True)
+shares = sorted([f for f in deck_files if f.startswith('分享')], key=deck_month, reverse=True)
+def deck_card(f, latest=False):
+    label = DECK_LABELS.get(f, os.path.splitext(f)[0].replace('AI高层谈资-',''))
+    fmt = 'PPTX 下载' if f.endswith('.pptx') else '网页'
+    return card(f, deck_month(f).replace('-','.'), label, fmt, latest)
+if deck_files:
+    body = ''
+    if talks:
+        body += '<div class="group">高层谈资</div>' + ''.join(deck_card(f, i == 0) for i, f in enumerate(talks))
+    if shares:
+        body += '<div class="group">其他分享</div>' + ''.join(deck_card(f) for f in shares)
+    io.open(os.path.join(deck_dir,'index.html'),'w',encoding='utf-8').write(sub_page(
+        '<span>高层谈资</span>', '高层谈资',
+        f'面向高层交流的谈资材料（PPTX 可下载，网页版可直接翻看） · 共 {len(talks)} 份', body))
+
+# 首页只放入口
+links = ''
+if ins_files:
+    links += f'<a href="insights/index.html">观点报告 · {len(ins_files)} 期 →</a>'
+if deck_files:
+    links += f'<a class="alt" href="deck/index.html">高层谈资 · {len(talks)} 份 →</a>'
 html = html.replace('__INSIGHTS__', f'<div class="insights">{links}</div>' if links else '')
 n_items = sum(len(d['items']) for d in idx)
 dates = sorted(d['date'] for d in idx)
